@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('{% static 'assets/img/home-bg.jpg' %}')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>KADIN ERKEK İLİŞKİLERİ </h1>
+                            <span class="subheading">1 HAFTA İÇİNDE ONLİNE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    {% for post in object_list %}
+
+
+
+
+                    <div class="post-preview">
+                        <a href="{% url 'post' post.pk %}"> <!-- POSTA AİT PRİMAREY KEY POST TEKİL SAYFALARA -->
+                            <h2 class="post-title">{{post.title}}</h2>
+                            <h3 class="post-subtitle">{{post.subtitle}}</h3>
+                        </a>
+                        <p class="post-meta">
+                            Post yazarı
+                            <a href="#!">{{post.author}}</a>
+                            saat {{post.date}}
+                        </p>
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+
+
+                    {% endfor %}
+
+
+
+
+
+                    <!-- Pager--> <!-- PAGİNATİON YÖNLENDİRME SAYFA DEĞİŞTİRME FALAN FİLEN -->
+
+                    
+                     
+                    <div class="d-flex justify-content-end mb-4">
+
+                        <div class="clearfix">
+                            {% if is_paginated %}
+
+
+                                {% if page_obj.number == 1 %}
+                                <a class="btn btn-outline-info float-right" href="?page=2">NEXT &rsaquo;</a>  <!-- ilk sayfadan ileriye gitme-->
+                                {% endif %}
+
+                                {% if page_obj.has_previous %} <!-- koşul döngüsü-->
+                                <a class="btn btn-outline-info" href="/">İLK SAYFA &rsaquo;</a> <!-- EN BAŞTAKİ POSTA SAYFAYA GİTME -->
+                                <a class="btn btn-outline-info" href="?page={{ page_obj.previous_page_number }}">BİR ÖNCEKİ &rsaquo;</a>  <!-- BİR ÖNCEKİNE GİTME-->
+                                {% endif %}
+
+                                {% for num in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == num and page_obj.number != 1 %}
+                                    <a class="btn btn-outline-info float-right" href="?page={{num}}">{{num}}&rsaquo;</a>  <!-- hangi sayfa oldugunu gösterme-->
+                                    {% endif %}
+                                    
+                                {% endfor %}
+
+                                {% if page_obj.has_next and page_obj.number != 1 %}
+                                <a class="btn btn-outline-info" href="?page={{ page_obj.next_page_number }}">İLERİ&rsaquo;</a> <!-- BİR SONRAKİ SAYFA -->
+                                <a class="btn btn-outline-info" href="?page={{ page_obj.paginator.num_pages }}">EN SON &rsaquo;</a> <!-- en son daki sayfa gider-->
+                                {% endif %}
+                                                      
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}
