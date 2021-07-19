@@ -1,5 +1,9 @@
 # Django-Blog 
 DJANGO = 3.2.4
+
 PYTHON 3.9
+
 DJANGO TWEAKS
+
 DJANGO CKEDİTOR
+
